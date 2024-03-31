@@ -23,7 +23,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
   return (
     <div className="product-container">
       <div className="flex gap-28 xl:flex-row flex-col">
-        <div>
+        <div className="product-image">
           <Image
             src={product.image}
             alt={product.title}
@@ -32,12 +32,14 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             className="mx-auto"
           />
         </div>
+
         <div className="flex-1 flex flex-col">
           <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
             <div className="flex flex-col gap-3">
               <p className="text-[28px] text-secondary font-semibold">
                 {product.title}
               </p>
+
               <Link
                 href={product.url}
                 target="_blank"
@@ -46,6 +48,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                 Visit Product
               </Link>
             </div>
+
             <div className="flex items-center gap-3">
               <div className="product-hearts">
                 <Image
@@ -54,10 +57,12 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                   width={20}
                   height={20}
                 />
+
                 <p className="text-base font-semibold text-[#D46F77]">
                   {product.reviewsCount}
                 </p>
               </div>
+
               <div className="p-2 bg-white-200 rounded-10">
                 <Image
                   src="/assets/icons/bookmark.svg"
@@ -66,6 +71,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                   height={20}
                 />
               </div>
+
               <div className="p-2 bg-white-200 rounded-10">
                 <Image
                   src="/assets/icons/share.svg"
@@ -76,6 +82,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               </div>
             </div>
           </div>
+
           <div className="product-info">
             <div className="flex flex-col gap-2">
               <p className="text-[34px] text-secondary font-bold">
@@ -85,6 +92,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                 {product.currency} {formatNumber(product.originalPrice)}
               </p>
             </div>
+
             <div className="flex flex-col gap-4">
               <div className="flex gap-3">
                 <div className="product-stars">
@@ -98,6 +106,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                     {product.stars || "25"}
                   </p>
                 </div>
+
                 <div className="product-reviews">
                   <Image
                     src="/assets/icons/comment.svg"
@@ -110,12 +119,14 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                   </p>
                 </div>
               </div>
+
               <p className="text-sm text-black opacity-50">
                 <span className="text-primary-green font-semibold">93% </span>{" "}
-                of buyers have recommended this.
+                of buyers have recommeded this.
               </p>
             </div>
           </div>
+
           <div className="my-7 flex flex-col gap-5">
             <div className="flex gap-5 flex-wrap">
               <PriceInfoCard
@@ -148,33 +159,40 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               />
             </div>
           </div>
+
           <Modal productId={id} />
         </div>
       </div>
+
       <div className="flex flex-col gap-16">
         <div className="flex flex-col gap-5">
           <h3 className="text-2xl text-secondary font-semibold">
             Product Description
           </h3>
-          <div className="flex flex-col gap-4 ">
+
+          <div className="flex flex-col gap-4">
             {product?.description?.split("\n")}
           </div>
         </div>
-        <button className="btn w-full mx-auto flex items-center">
+
+        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
           <Image
             src="/assets/icons/bag.svg"
             alt="check"
             width={22}
             height={22}
           />
+
           <Link href="/" className="text-base text-white">
             Buy Now
           </Link>
         </button>
       </div>
+
       {similarProducts && similarProducts?.length > 0 && (
         <div className="py-14 flex flex-col gap-2 w-full">
           <p className="section-text">Similar Products</p>
+
           <div className="flex flex-wrap gap-10 mt-7 w-full">
             {similarProducts.map((product) => (
               <ProductCard key={product._id} product={product} />

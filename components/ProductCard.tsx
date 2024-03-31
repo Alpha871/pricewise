@@ -9,16 +9,17 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   return (
-    <Link href={`/products/${product._id}`}>
+    <Link href={`/products/${product._id}`} className="product-card">
       <div className="product-card_img-container">
         <Image
           src={product.image}
           alt={product.title}
           width={200}
           height={200}
-          className="product-card-img"
+          className="product-card_img"
         />
       </div>
+
       <div className="flex flex-col gap-3">
         <h3 className="product-title">{product.title}</h3>
 
@@ -26,6 +27,7 @@ const ProductCard = ({ product }: Props) => {
           <p className="text-black opacity-50 text-lg capitalize">
             {product.category}
           </p>
+
           <p className="text-black text-lg font-semibold">
             <span>{product?.currency}</span>
             <span>{product?.currentPrice}</span>
