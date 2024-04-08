@@ -1,4 +1,5 @@
 import { PriceHistoryItem, Product } from "@/types";
+import { Interface } from "readline";
 
 const Notification = {
   WELCOME: "WELCOME",
@@ -6,6 +7,14 @@ const Notification = {
   LOWEST_PRICE: "LOWEST_PRICE",
   THRESHOLD_MET: "THRESHOLD_MET",
 };
+
+interface Comment {
+  title: string;
+  stars: string;
+  country: string;
+  state: string;
+  review: string;
+}
 
 const THRESHOLD_PERCENTAGE = 40;
 
@@ -58,6 +67,50 @@ export function extractDescription($: any) {
 
   // If no matching elements were found, return an empty string
   return "";
+}
+
+export function extractComment($: any) {
+  // these are possible elements holding description of the product
+  const comments: Comment[] = [];
+  const reviews = $(".review");
+  for (let i = 0; i < reviews.length; i++) {
+    const review = $(reviews[i]);
+    const title = review
+      .find(".review-title>span:last-child")
+      .text()
+      .replace(/\n\s+/g, "")
+      .trim();
+    const stars = review
+      .find(".review-title .a-icon-alt")
+      .text()
+      .replace(/\n\s+/g, "")
+      .trim();
+    const country = review
+      .find(".review-date")
+      .text()
+      .replace(/\n\s+/g, "")
+      .trim();
+    const state = review
+      .find(".a-color-state")
+      .text()
+      .replace(/\n\s+/g, "")
+      .trim();
+    const message = review
+      .find(".reviewText")
+      .text()
+      .replace(/\n\s+/g, "")
+      .trim();
+
+    comments.push({
+      title,
+      stars,
+      country,
+      state,
+      review: message,
+    });
+  }
+
+  return comments;
 }
 
 export function getHighestPrice(priceList: PriceHistoryItem[]) {
